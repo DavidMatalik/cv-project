@@ -1,5 +1,11 @@
 @import-normalize; /* bring in normalize.css styles */
 
 h1 {
-  color: aquamarine;
+  color: brown;
+}
+
+.cv-section {
+  width: 600px;
+  min-height: 200px;
+  background-color: rgba(135, 207, 235, 0.301);
 }
