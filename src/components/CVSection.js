@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import CVSectionHeading from './CVSectionHeading'
+import CVSectionInput from './CVSectionInput'
 
 class CVSection extends Component {
   constructor() {
@@ -7,9 +8,19 @@ class CVSection extends Component {
   }
 
   render() {
+    const { title, fields } = this.props
+    const inputs = fields.map((field, i) => {
+      return (
+        <div className='input-wrapper' key={i}>
+          <CVSectionInput inputName={field}></CVSectionInput>
+        </div>
+      )
+    })
+
     return (
-      <section class='cv-section'>
-        <CVSectionHeading title={this.props.title}></CVSectionHeading>
+      <section className='cv-section'>
+        <CVSectionHeading title={title}></CVSectionHeading>
+        {inputs}
       </section>
     )
   }

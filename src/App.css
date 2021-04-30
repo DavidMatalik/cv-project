@@ -9,3 +9,12 @@ h1 {
   min-height: 200px;
   background-color: rgba(135, 207, 235, 0.301);
 }
+
+label {
+  display: inline-block;
+  width: 120px;
+}
+
+.input-wrapper {
+  margin-bottom: 10px;
+}
