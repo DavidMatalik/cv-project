@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import CVSectionHeading from './CVSectionHeading'
 import CVSectionInput from './CVSectionInput'
+import CVSectionEditButton from './CVSectionEditButton'
+import CVSectionSubmitButton from './CVSectionSubmitButton'
 
 class CVSection extends Component {
   constructor() {
@@ -21,6 +23,10 @@ class CVSection extends Component {
       <section className='cv-section'>
         <CVSectionHeading title={title}></CVSectionHeading>
         {inputs}
+        <div id='buttons'>
+          <CVSectionEditButton></CVSectionEditButton>
+          <CVSectionSubmitButton></CVSectionSubmitButton>
+        </div>
       </section>
     )
   }
