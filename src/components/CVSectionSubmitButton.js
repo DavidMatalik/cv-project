@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 
 class CVSectionSubmitButton extends Component {
   render() {
-    return <button>Submit</button>
+    const { handleSubmit } = this.props
+    return <button onClick={handleSubmit}>Submit</button>
   }
 }
 
