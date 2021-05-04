@@ -27,9 +27,8 @@ class CVSectionForm extends Component {
       })
     })
 
-    console.log(this.state)
-
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   // This handleChange works for all input Fields
@@ -40,6 +39,11 @@ class CVSectionForm extends Component {
     this.setState({
       [ev.target.name]: ev.target.value,
     })
+  }
+
+  handleSubmit(ev) {
+    console.log(this.state)
+    ev.preventDefault()
   }
 
   render() {
@@ -63,7 +67,9 @@ class CVSectionForm extends Component {
         {inputs}
         <div id='buttons'>
           <CVSectionEditButton></CVSectionEditButton>
-          <CVSectionSubmitButton></CVSectionSubmitButton>
+          <CVSectionSubmitButton
+            handleSubmit={this.handleSubmit}
+          ></CVSectionSubmitButton>
         </div>
       </form>
     )
