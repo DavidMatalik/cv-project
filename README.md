@@ -1,3 +1,8 @@
+# Todos
+
+- Style cv-project nicer  
+- Add possibility to enter several stations under section 'Practical Experience'
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
