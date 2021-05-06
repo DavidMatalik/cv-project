@@ -17,13 +17,14 @@ class CVSectionForm extends Component {
     })
 
     this.state = {
-      inputNames: [],
+      inputValues: [],
+      edit: true,
     }
 
-    // Put existing input names into state inputNames array
+    // Put existing input names into state inputValues array
     this.fieldObjects.forEach((obj) => {
       this.setState({
-        inputNames: this.state.inputNames.push({ [obj.inputName]: '' }),
+        inputValues: this.state.inputValues.push({ [obj.inputName]: '' }),
       })
     })
 
@@ -36,31 +37,63 @@ class CVSectionForm extends Component {
   // the correspending input field using the name
   // attribute of the changed input field
   handleChange(ev) {
+    // Find index in inputValues at which the key name is the same
+    // as name of ev.target.name
+    const index = this.state.inputValues.findIndex((obj) => {
+      const key = Object.keys(obj)
+      return key[0] === ev.target.name
+    })
+
+    // Create copy of inputValues and write
+    // ev.target.value as value to the object which
+    // is at the found index from above
+    let newInputValues = this.state.inputValues
+    newInputValues[index][ev.target.name] = ev.target.value
+
     this.setState({
-      [ev.target.name]: ev.target.value,
+      inputValues: newInputValues,
     })
   }
 
   handleSubmit(ev) {
-    console.log(this.state)
+    this.setState({
+      edit: false,
+    })
     ev.preventDefault()
   }
 
   render() {
-    const { inputValue } = this.state
-    const inputs = this.fieldObjects.map((obj, i) => {
-      return (
-        <div className='input-wrapper' key={i}>
-          <label>{obj.labelName}</label>
-          <input
-            type='text'
-            name={obj.inputName}
-            value={inputValue}
-            onChange={this.handleChange}
-          />
-        </div>
-      )
-    })
+    let inputs = null
+    // Either we want to have input fields in inputs
+    if (this.state.edit) {
+      inputs = this.fieldObjects.map((obj, i) => {
+        return (
+          <div className='input-wrapper' key={i}>
+            <label>{obj.labelName}</label>
+            <input
+              type='text'
+              name={obj.inputName}
+              value={this.state.inputValues[i][obj.inputName]}
+              onChange={this.handleChange}
+            />
+          </div>
+        )
+      })
+    }
+
+    // Or if clicked on submit button
+    // we want to have p's or div's with latest input values
+    if (!this.state.edit) {
+      inputs = this.fieldObjects.map((obj, i) => {
+        return (
+          <div className='input-wrapper' key={i}>
+            <label>{obj.labelName}</label>
+            {/* Put right state values instead of Placeholder */}
+            <div className='output'>Placeholder</div>
+          </div>
+        )
+      })
+    }
 
     return (
       <form>
