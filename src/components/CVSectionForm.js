@@ -76,8 +76,7 @@ class CVSectionForm extends Component {
         return (
           <div className='input-wrapper' key={i}>
             <label>{obj.labelName}</label>
-            {/* Put right state values instead of Placeholder */}
-            <div className='output'>Placeholder</div>
+            <div className='output'>{this.state[obj.inputName]}</div>
           </div>
         )
       })
