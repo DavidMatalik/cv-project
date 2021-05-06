@@ -2,6 +2,7 @@
 
 - Style cv-project nicer  
 - Add possibility to enter several stations under section 'Practical Experience'
+- Deploy on GH pages
 
 # Getting Started with Create React App
 
