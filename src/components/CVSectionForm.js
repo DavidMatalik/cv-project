@@ -22,6 +22,7 @@ class CVSectionForm extends Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleEdit = this.handleEdit.bind(this)
   }
 
   // Write available input fields in state
@@ -50,8 +51,16 @@ class CVSectionForm extends Component {
     ev.preventDefault()
   }
 
+  handleEdit(ev) {
+    this.setState({
+      edit: true,
+    })
+    ev.preventDefault()
+  }
+
   render() {
     let inputs = null
+
     // Either we want to have input fields in inputs
     if (this.state.edit) {
       inputs = this.fieldObjects.map((obj, i) => {
@@ -69,8 +78,7 @@ class CVSectionForm extends Component {
       })
     }
 
-    // Or if clicked on submit button
-    // we want to have p's or div's with latest input values
+    // Or we want to have div's with latest input values
     if (!this.state.edit) {
       inputs = this.fieldObjects.map((obj, i) => {
         return (
@@ -86,7 +94,9 @@ class CVSectionForm extends Component {
       <form>
         {inputs}
         <div id='buttons'>
-          <CVSectionEditButton></CVSectionEditButton>
+          <CVSectionEditButton
+            handleEdit={this.handleEdit}
+          ></CVSectionEditButton>
           <CVSectionSubmitButton
             handleSubmit={this.handleSubmit}
           ></CVSectionSubmitButton>

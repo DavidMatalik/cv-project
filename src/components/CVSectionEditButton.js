@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 
 class CVSectionEditButton extends Component {
   render() {
-    return <button>Edit</button>
+    const { handleEdit } = this.props
+    return <button onClick={handleEdit}>Edit</button>
   }
 }
 
