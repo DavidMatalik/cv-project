@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import CVSectionSubmitButton from './CVSectionSubmitButton'
-import CVSectionEditButton from './CVSectionEditButton'
+import CVSectionButton from './CVSectionButton'
 import CVSectionInput from './CVSectionInput'
 
 class CVSectionForm extends Component {
@@ -93,12 +92,14 @@ class CVSectionForm extends Component {
       <form>
         {inputs}
         <div id='buttons'>
-          <CVSectionEditButton
-            handleEdit={this.handleEdit}
-          ></CVSectionEditButton>
-          <CVSectionSubmitButton
-            handleSubmit={this.handleSubmit}
-          ></CVSectionSubmitButton>
+          <CVSectionButton
+            value='Edit'
+            handleAction={this.handleEdit}
+          ></CVSectionButton>
+          <CVSectionButton
+            value='Submit'
+            handleAction={this.handleSubmit}
+          ></CVSectionButton>
         </div>
       </form>
     )
