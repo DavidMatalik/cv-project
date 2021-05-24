@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CVSectionSubmitButton from './CVSectionSubmitButton'
 import CVSectionEditButton from './CVSectionEditButton'
+import CVSectionInput from './CVSectionInput'
 
 class CVSectionForm extends Component {
   constructor(props) {
@@ -65,15 +66,13 @@ class CVSectionForm extends Component {
     if (this.state.edit) {
       inputs = this.fieldObjects.map((obj, i) => {
         return (
-          <div className='input-wrapper' key={i}>
-            <label>{obj.labelName}</label>
-            <input
-              type='text'
-              name={obj.inputName}
-              value={this.state[obj.inputName] || ''}
-              onChange={this.handleChange}
-            />
-          </div>
+          <CVSectionInput
+            key={i}
+            labelName={obj.labelName}
+            inputName={obj.inputName}
+            inputValue={this.state[obj.inputName]}
+            handleChange={this.handleChange}
+          ></CVSectionInput>
         )
       })
     }
