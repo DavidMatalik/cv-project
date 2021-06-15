@@ -1,9 +1,5 @@
-import React, { Component } from 'react'
-
-class CVSectionHeading extends Component {
-  render() {
-    return <h2>{this.props.title}</h2>
-  }
+const CVSectionHeading = (props) => {
+  return <h2>{props.title}</h2>
 }
 
 export default CVSectionHeading
