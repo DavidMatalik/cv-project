@@ -1,109 +1,87 @@
-import React, { Component } from 'react'
+import { useState } from 'react'
 import CVSectionButton from './CVSectionButton'
 import CVSectionInput from './CVSectionInput'
 
-class CVSectionForm extends Component {
-  constructor(props) {
-    super(props)
+const CVSectionForm = (props) => {
+  const { fields } = props
 
-    const { fields } = this.props
-
-    // Create array to generate unique names for existing input fields
-    this.fieldObjects = fields.map((field, i) => {
-      return {
-        labelName: field,
-        inputName: `inputField${i}`,
-      }
-    })
-
-    this.state = {
-      edit: true,
+  const fieldObjects = fields.map((field, i) => {
+    return {
+      labelName: field,
+      inputName: `inputField${i}`,
     }
+  })
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleEdit = this.handleEdit.bind(this)
-  }
+  const stateInputObj = fieldObjects.reduce((acc, cv) => {
+    const { inputName } = cv
+    return { [inputName]: '', ...acc }
+  }, [])
 
-  // Write available input fields in state
-  componentDidMount() {
-    this.fieldObjects.forEach((obj) => {
-      this.setState({
-        [obj.inputName]: '',
-      })
-    })
-  }
+  const [inputsState, setInputsState] = useState(stateInputObj)
+  const [edit, setEdit] = useState(true)
 
   // This handleChange works for all input Fields
   // in this form. It puts the changed value to
   // the correspending input field using the name
   // attribute of the changed input field
-  handleChange(ev) {
-    this.setState({
-      [ev.target.name]: ev.target.value,
-    })
+  const handleChange = (ev) => {
+    const { name, value } = ev.target
+    setInputsState((prevState) => ({ ...prevState, [name]: value }))
   }
 
-  handleSubmit(ev) {
-    this.setState({
-      edit: false,
-    })
+  const handleSubmit = (ev) => {
+    setEdit(false)
     ev.preventDefault()
   }
 
-  handleEdit(ev) {
-    this.setState({
-      edit: true,
-    })
+  const handleEdit = (ev) => {
+    setEdit(true)
     ev.preventDefault()
   }
 
-  render() {
-    let inputs = null
+  let inputs = null
 
-    // Either we want to have input fields in inputs
-    if (this.state.edit) {
-      inputs = this.fieldObjects.map((obj, i) => {
-        return (
-          <CVSectionInput
-            key={i}
-            labelName={obj.labelName}
-            inputName={obj.inputName}
-            inputValue={this.state[obj.inputName]}
-            handleChange={this.handleChange}
-          ></CVSectionInput>
-        )
-      })
-    }
+  if (edit) {
+    inputs = fieldObjects.map((obj, i) => {
+      return (
+        <CVSectionInput
+          key={i}
+          labelName={obj.labelName}
+          inputName={obj.inputName}
+          inputValue={inputsState[obj.inputName]}
+          handleChange={handleChange}
+        ></CVSectionInput>
+      )
+    })
+  }
 
-    // Or we want to have div's with latest input values
-    if (!this.state.edit) {
-      inputs = this.fieldObjects.map((obj, i) => {
-        return (
-          <div className='input-wrapper' key={i}>
-            <label>{obj.labelName}</label>
-            <div className='output'>{this.state[obj.inputName]}</div>
-          </div>
-        )
-      })
-    }
-
-    return (
-      <form>
-        {inputs}
-        <div id='buttons'>
-          <CVSectionButton
-            value='Edit'
-            handleAction={this.handleEdit}
-          ></CVSectionButton>
-          <CVSectionButton
-            value='Submit'
-            handleAction={this.handleSubmit}
-          ></CVSectionButton>
+  // Or we want to have div's with latest input values
+  if (!edit) {
+    inputs = fieldObjects.map((obj, i) => {
+      return (
+        <div className='input-wrapper' key={i}>
+          <label>{obj.labelName}</label>
+          <div className='output'>{inputsState[obj.inputName]}</div>
         </div>
-      </form>
-    )
+      )
+    })
   }
+
+  return (
+    <form>
+      {inputs}
+      <div id='buttons'>
+        <CVSectionButton
+          value='Submit'
+          handleAction={handleSubmit}
+        ></CVSectionButton>
+        <CVSectionButton
+          value='Edit'
+          handleAction={handleEdit}
+        ></CVSectionButton>
+      </div>
+    </form>
+  )
 }
 
 export default CVSectionForm
