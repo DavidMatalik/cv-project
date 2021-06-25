@@ -1,10 +1,7 @@
-import React, { Component } from 'react'
+const CVSectionButton = (props) => {
+  const { value, handleAction } = props
 
-class CVSectionButton extends Component {
-  render() {
-    const { value, handleAction } = this.props
-    return <button onClick={handleAction}>{value}</button>
-  }
+  return <button onClick={handleAction}>{value}</button>
 }
 
 export default CVSectionButton
