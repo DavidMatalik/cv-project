@@ -1,21 +1,17 @@
-import React from 'react'
+const CVSectionInput = (props) => {
+  const { labelName, inputName, inputValue, handleChange } = props
 
-class CVSectionInput extends React.Component {
-  render() {
-    const { labelName, inputName, inputValue, handleChange } = this.props
-
-    return (
-      <div className='input-wrapper'>
-        <label>{labelName}</label>
-        <input
-          type='text'
-          name={inputName}
-          value={inputValue || ''}
-          onChange={handleChange}
-        />
-      </div>
-    )
-  }
+  return (
+    <div className='input-wrapper'>
+      <label>{labelName}</label>
+      <input
+        type='text'
+        name={inputName}
+        value={inputValue || ''}
+        onChange={handleChange}
+      />
+    </div>
+  )
 }
 
 export default CVSectionInput
